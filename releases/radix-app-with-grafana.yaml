@@ -1,0 +1,31 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: radix-app-with-grafana
+  namespace: flux-example
+  annotations:
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: radix-app-with-grafana
+  chart:
+    git: ssh://git@github.com/satr/radix-app-with-grafana
+    ref: main
+    path: charts/radix-app-with-grafana
+  values:
+    image:
+      repository: ghcr.io/satr/radix-app-with-grafana
+      tag: latest
+    persistence:
+      enabled: false
+    resources:
+      requests:
+        memory: 32Mi
+        cpu: 10m
+    service:
+      type: ClusterIP
+    mariadb:
+      master:
+        persistence:
+          enabled: false
