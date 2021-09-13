@@ -25,7 +25,3 @@ spec:
         cpu: 10m
     service:
       type: ClusterIP
-    mariadb:
-      master:
-        persistence:
-          enabled: false
